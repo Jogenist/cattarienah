@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;" lang="de"><head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="keywords" content="Heute ist Tag">
+    <meta name="description" content="">
+    <title>Startseite</title>
+    <link rel="stylesheet" href="nicepage.css" media="screen">
+<link rel="stylesheet" href="Startseite.css" media="screen">
+    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
+    <script class="u-script" type="text/javascript" src="nicepage.js" defer=""></script>
+    <meta name="generator" content="Nicepage 6.4.0, nicepage.com">
+    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
+    
+    <style>
+        img {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        }
+        </style>
+    
+    <script type="application/ld+json">{
+		"@context": "http://schema.org",
+		"@type": "Organization",
+		"name": ""
+}</script>
+<script>
+  var the_day = 365;
+  var daysDiff = 0;
+  date_default_timezone_set('Europe/Berlin');
+  function myFunction(){
+      function datediff(first, second) {        
+          return Math.round((second - first) / (1000 * 60 * 60 * 24));
+      }
+      //const today = new Date()
+      //const tomorrow = new Date(today)
+      //tomorrow.setDate(tomorrow.getDate() + 1)
+      // present_date = new Date();
+      // our_date = new Date(2023, 8, 24);
+      // result = datediff(our_date,present_date);
+      // final_result = result.toFixed(0);
+      const firstDate = new Date("09/24/2023") // 24th September, 2023
+      const secondDate = new Date() // today
+
+      const firstDateInMs = firstDate.getTime()
+      const secondDateInMs = secondDate.getTime()
+
+      const differenceBtwDates = secondDateInMs - firstDateInMs
+
+      const aDayInMs = 24 * 60 * 60 * 1000
+
+      var daysDiff = Math.round(differenceBtwDates / aDayInMs)
+
+      document.getElementById("final_result").innerHTML = daysDiff;
+
+      return daysDiff;
+  }
+</script>
+    <meta name="theme-color" content="#478ac9">
+    <meta property="og:title" content="Startseite">
+    <meta property="og:type" content="website">
+  <meta data-intl-tel-input-cdn-path="intlTelInput/"></head>
+  <body onload="myFunction()" data-home-page="Startseite.html" data-home-page-title="Startseite" data-path-to-root="./" data-include-products="false" class="u-body u-xl-mode" data-lang="de"> 
+    <!-- Create a canvas element on which the fireworks will be drawn -->
+    <canvas id="canvas" height="10" ></canvas>
+    <section class="u-align-left u-clearfix u-image u-shading u-section-1" id="carousel_dd7d" data-image-width="2016" data-image-height="1512">
+      <div class="u-clearfix u-sheet u-sheet-1">
+        <div class="u-align-left u-container-style u-group u-shape-rectangle u-group-1" data-animation-name="customAnimationIn" data-animation-duration="1500" data-animation-delay="500">
+          <div class="u-container-layout u-container-layout-1">
+            <h2 class="u-align-left u-font-titillium-Web u-text u-text-1">Heute ist Tag <span id="final_result"></span><br>
+            </h2>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!--ADD PICTURES HERE!-->
+    <br> 
+    <img src="images/LEDCube.jpg" alt="Italian Trulli" class="center" width="30%">
+    <br> 
+    <img src="images/Freiburg.jpg" alt="Italian Trulli" class="center" width="30%">
+    <br> 
+    <img src="images/Garmisch.jpg" alt="Italian Trulli" class="center" width="30%">
+    <br> 
+    <img src="images/Blau.jpg" alt="Italian Trulli" class="center" width="30%">
+    <br> 
+</body>
+<script>
+  daysDiff = myFunction();
+  if (Number(daysDiff) == the_day)
+  {
+    window.addEventListener("resize", resizeCanvas, false);
+    window.addEventListener("DOMContentLoaded", onLoad, false);
+    
+    window.requestAnimationFrame = 
+        window.requestAnimationFrame       || 
+        window.webkitRequestAnimationFrame || 
+        window.mozRequestAnimationFrame    || 
+        window.oRequestAnimationFrame      || 
+        window.msRequestAnimationFrame     || 
+        function (callback) {
+            window.setTimeout(callback, 1000/60);
+        };
+    
+    var canvas, ctx, w, h, particles = [], probability = 0.04,
+        xPoint, yPoint;
+    
+    
+    
+    
+    
+    function onLoad() {
+        canvas = document.getElementById("canvas");
+        ctx = canvas.getContext("2d");
+        resizeCanvas();
+        
+        window.requestAnimationFrame(updateWorld);
+    } 
+    
+    function resizeCanvas() {
+        if (!!canvas) {
+            w = canvas.width = window.innerWidth;
+            h = canvas.height = 300;//window.innerHeight;
+        }
+    } 
+    
+    function updateWorld() {
+        update();
+        paint();
+        window.requestAnimationFrame(updateWorld);
+    } 
+    
+    function update() {
+        if (particles.length < 500 && Math.random() < probability) {
+            createFirework();
+        }
+        var alive = [];
+        for (var i=0; i<particles.length; i++) {
+            if (particles[i].move()) {
+                alive.push(particles[i]);
+            }
+        }
+        particles = alive;
+    } 
+    
+    function paint() {
+        ctx.globalCompositeOperation = 'source-over';
+        ctx.fillStyle = "rgba(0,0,0,0.2)";
+        ctx.fillRect(0, 0, w, h);
+        ctx.globalCompositeOperation = 'lighter';
+        for (var i=0; i<particles.length; i++) {
+            particles[i].draw(ctx);
+        }
+    } 
+    
+    function createFirework() {
+        xPoint = Math.random()*(w-200)+100;
+        yPoint = Math.random()*(h-200)+100;
+        var nFire = Math.random()*50+100;
+        var c = "rgb("+(~~(Math.random()*200+55))+","
+            +(~~(Math.random()*200+55))+","+(~~(Math.random()*200+55))+")";
+        for (var i=0; i<nFire; i++) {
+            var particle = new Particle();
+            particle.color = c;
+            var vy = Math.sqrt(25-particle.vx*particle.vx);
+            if (Math.abs(particle.vy) > vy) {
+                particle.vy = particle.vy>0 ? vy: -vy;
+            }
+            particles.push(particle);
+        }
+    } 
+    
+    function Particle() {
+        this.w = this.h = Math.random()*4+1;
+        
+        this.x = xPoint-this.w/2;
+        this.y = yPoint-this.h/2;
+        
+        this.vx = (Math.random()-0.5)*10;
+        this.vy = (Math.random()-0.5)*10;
+        
+        this.alpha = Math.random()*.5+.5;
+        
+        this.color;
+    } 
+    
+    Particle.prototype = {
+        gravity: 0.05,
+        move: function () {
+            this.x += this.vx;
+            this.vy += this.gravity;
+            this.y += this.vy;
+            this.alpha -= 0.01;
+            if (this.x <= -this.w || this.x >= screen.width ||
+                this.y >= screen.height ||
+                this.alpha <= 0) {
+                    return false;
+            }
+            return true;
+        },
+        draw: function (c) {
+            c.save();
+            c.beginPath();
+            
+            c.translate(this.x+this.w/2, this.y+this.h/2);
+            c.arc(0, 0, this.w, 0, Math.PI*2);
+            c.fillStyle = this.color;
+            c.globalAlpha = this.alpha;
+            
+            c.closePath();
+            c.fill();
+            c.restore();
+        }
+    } 
+  }
+</script>
+
+
+</html>
+
