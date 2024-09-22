@@ -40,21 +40,26 @@
       // our_date = new Date(2023, 8, 24);
       // result = datediff(our_date,present_date);
       // final_result = result.toFixed(0);
+
+
       const firstDate = new Date("09/24/2023") // 24th September, 2023
       const secondDate = new Date() // today
 
       const firstDateInMs = firstDate.getTime()
       const secondDateInMs = secondDate.getTime()
-
       const differenceBtwDates = secondDateInMs - firstDateInMs
 
       const aDayInMs = 24 * 60 * 60 * 1000
-
+      
       var daysDiff = Math.round(differenceBtwDates / aDayInMs)
+      let today_day = secondDate.getDate()
+      let today_month = secondDate.getMonth()
 
       document.getElementById("final_result").innerHTML = daysDiff;
-
-      return daysDiff;
+      //console.log(today_day);
+      //out = (daysDiff,secondDate.getDay,secondDate.getMonth);
+      //return array(daysDiff,today_day,today_month);
+      return [Number(today_day),Number(today_month)]
   }
 </script>
     <meta name="theme-color" content="#478ac9">
@@ -91,8 +96,9 @@
     <br> 
 </body>
 <script>
-  daysDiff = myFunction();
-  if (Number(daysDiff) == the_day)
+  const [day,month] = myFunction();
+  //if (Number(daysDiff) == the_day)
+  if((day == 24)&&(month == 8)) //monat == 8, weil Januar 0 ist!
   {
     window.addEventListener("resize", resizeCanvas, false);
     window.addEventListener("DOMContentLoaded", onLoad, false);
