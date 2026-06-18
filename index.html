@@ -59,7 +59,7 @@
       //console.log(today_day);
       //out = (daysDiff,secondDate.getDay,secondDate.getMonth);
       //return array(daysDiff,today_day,today_month);
-      return [Number(today_day),Number(today_month)]
+      return [Number(today_day),Number(today_month),Number(daysDiff)]
   }
 </script>
     <meta name="theme-color" content="#478ac9">
@@ -104,11 +104,17 @@
     <br>
     <img src="images/Island.PNG" alt="Italian Trulli" class="center" width="100%">
     <br>
+    <img src="images/Stuttgart.jpg" alt="Italian Trulli" class="center" width="100%">
+    <br>
+    <img src="images/Umzug.jpeg" alt="Italian Trulli" class="center" width="100%">
+    <br>
+    <img src="images/Heilbronn.jpeg" alt="Italian Trulli" class="center" width="100%">
+    <br>
 </body>
 <script>
-  const [day,month] = myFunction();
+  const [day,month,daysdiff] = myFunction();
   //if (Number(daysDiff) == the_day)
-  if((day == 24)&&(month == 8)) //monat == 8, weil Januar 0 ist!
+  if((day == 24)&&(month == 8) || (daysdiff == 1000)) //monat == 8, weil Januar 0 ist!
   {
     window.addEventListener("resize", resizeCanvas, false);
     window.addEventListener("DOMContentLoaded", onLoad, false);
